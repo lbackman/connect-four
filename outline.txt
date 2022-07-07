@@ -1,0 +1,61 @@
+Connect-four
+
+Markers can be implemented by instantiating a class: Marker1 or Marker2.
+The markers are then added to either of the seven instances of Column.
+For instance, column1 = Column.new(1), with the '1' indicating it is the first of 7.
+
+Player1 is created with Marker1 as its marker and likewise for Player2.
+
+A method in Board should check for win conditions:
+1. when four consecutive columns all have the same marker in the same position.
+2. when four consecutive positions within a column have the same marker.
+3. when four consecutive columns all have the same marker in ascending or descending positions.
+
+##POSSIBLE CLASSES TO INCLUDE##
+
+- Column
+- Board
+- Player
+- Player1
+- Player2
+- Marker
+- Marker1
+- Marker2
+
+
+* Methods in Column *
+
+ - #add_marker
+ - #full? and #empty?
+ - #capacity
+ - #position(number): returns the marker, if any at the position given by number
+ - #[](index) and []=(index, value)
+
+
+* Methods in Board *
+
+Alternative 1 - using Column
+
+- #initialize: with 7 column instances.
+  def initialize
+    7.times do |i|
+      instance_variable_set("@col_#{i + 1}", Column.new(i + 1))
+    end
+  end
+- #board_full?: draw game if no win condition is met
+- #win?(marker): checks if marker meets win condition
+
+Alternative 2 - not using Column
+
+- #initialize: with a 7x6 grid, most likely an array
+- #place_marker(marker, column): places the marker in the next availabel spot in that column
+  here, column would be just an array.
+- #
+
+
+
+* Methods in Marker *
+attr_reader: position/placement (1 if the marker is on the bottom of the column, 6 if on top)
+
+- #to_s: prints the symbol for Marker1/Marker2
+
