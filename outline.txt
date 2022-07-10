@@ -21,6 +21,7 @@ A method in Board should check for win conditions:
 - Marker
 - Marker1
 - Marker2
+- Game
 
 
 * Methods in Column *
@@ -59,3 +60,9 @@ attr_reader: position/placement (1 if the marker is on the bottom of the column,
 
 - #to_s: prints the symbol for Marker1/Marker2
 
+
+SUNDAY July 10th:
+- Make a method for column - drop_marker
+   * when the column is empty it places it at the bottom (position 1)
+   * afterwards the position increases by 1 each time a marker is dropped
+   * when there are 7 markers in a column, no new markers can be dropped
