@@ -13,5 +13,19 @@ class Board
     get_column(number).drop_marker!(marker)
   end
 
+  def row(number)
+    row_print = ""
+    7.times do |i|
+      row_print << "  " unless get_column(i + 1).get_marker(number)
+
+      row_print << get_column(i + 1).get_marker(number)
+    end
+    row_print
+  end
+
+  def current_board
+    6.downto(1).map { |i| row(i) }.join("\n")
+  end
+
   alias_method :[], :get_column
 end
