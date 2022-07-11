@@ -45,6 +45,8 @@ Alternative 1 - using Column
   end
 - #board_full?: draw game if no win condition is met
 - #win?(marker): checks if marker meets win condition
+  * might be useful: &. (safe navigation operator)
+   (https://troikatech.com/blog/2022/02/02/confident-ruby-in-the-presence-of-nil/)
 
 Alternative 2 - not using Column
 
@@ -54,15 +56,29 @@ Alternative 2 - not using Column
 - #
 
 
-
 * Methods in Marker *
 attr_reader: position/placement (1 if the marker is on the bottom of the column, 6 if on top)
 
 - #to_s: prints the symbol for Marker1/Marker2
 
 
-SUNDAY July 10th:
-- Make a method for column - drop_marker
-   * when the column is empty it places it at the bottom (position 1)
-   * afterwards the position increases by 1 each time a marker is dropped
-   * when there are 7 markers in a column, no new markers can be dropped
+* Methods in Game *
+
+- #initialize @player_1, @player_2, @board
+
+- #choose_column
+When a column is chosen by a player it should look something like this:
+
+def choose_column
+  puts 'Choose a column to place your marker (1 - 7)'
+  loop do
+    column = gets.to_i
+    if (1..7).include?(column)
+      current_player.choose_column!(number)
+      break
+    else
+      puts 'Please give a value between 1 and 7.'
+    end
+  end
+end
+
