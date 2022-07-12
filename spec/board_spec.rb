@@ -88,17 +88,17 @@ RSpec.describe Board do
       board.place_marker!("\u26ab", 5)
     end
 
-    it 'the sixth (highest) row should be empty' do
+    it 'the 6th (highest) row should be empty' do
       row_6 = board.row(6)
       expect(row_6).to eq("              ")
     end
 
-    it 'the second row should have a black circle in the fifth column' do
+    it 'the 2nd row should have a black circle in the 5th column' do
       row_2 = board.row(2)
       expect(row_2).to eq("        \u26ab    ")
     end
 
-    it 'the first row should have a white circle in the 1st and 5th column' do
+    it 'the 1st row should have a white circle in the 1st and 5th column' do
       row_1 = board.row(1)
       expect(row_1).to eq("\u26aa      \u26ab    ")
     end
@@ -116,6 +116,12 @@ RSpec.describe Board do
         "              " + "\n" +
         "        \u26ab    " + "\n" +
         "\u26aa      \u26ab    ")
+    end
+  end
+
+  describe '#column_win?' do
+    it 'should return false if there are not 4 of the same markers in a row' do
+      expect(board.column_win?(1, "\u26aa")).to eq(false)
     end
   end
 end

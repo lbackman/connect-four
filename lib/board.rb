@@ -16,15 +16,25 @@ class Board
   def row(number)
     row_print = ""
     7.times do |i|
-      row_print << "  " unless get_column(i + 1).get_marker(number)
-
-      row_print << get_column(i + 1).get_marker(number)
+      if get_column(i + 1).get_marker(number)
+        row_print << get_column(i + 1).get_marker(number)
+      else
+        row_print << "  "
+      end
     end
     row_print
   end
 
   def current_board
     6.downto(1).map { |i| row(i) }.join("\n")
+  end
+
+  def column_win?(number, marker)
+    col = instance_variable_get("@col_#{number}")
+    1.upto(6)
+      .map { |i| col[i] }
+      .each_cons(4)
+      .any? { |arr| arr == Array.new(4) { marker }}
   end
 
   alias_method :[], :get_column

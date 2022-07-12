@@ -6,7 +6,11 @@ class Column
   end
 
   def get_marker(index)
-    @items[index]
+    if @items[index]
+      "#{@items[index]}"
+    else
+      "  "
+    end
   end
 
   def drop_marker!(value = 'marker_1')

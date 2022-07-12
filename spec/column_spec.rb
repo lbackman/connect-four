@@ -3,14 +3,14 @@ require 'column'
 describe Column do
   subject(:column) { described_class.new }
 
-  describe '#[](index)' do
+  describe '#[] / #get_marker' do
     # let(:marker) { double('marker') }
 
     before do
       allow(column).to receive(:[]).with(1).and_return 'marker'
     end
 
-    it 'gets the marker at [1]' do
+    it 'gets the marker at symbol string representation [1]' do
       expect(column[1]).to eq('marker')
     end
   end
@@ -31,7 +31,7 @@ describe Column do
 
     it 'does not drop any more markers after 6' do
       7.times { |i| column.drop_marker!("marker#{i + 1}")}
-      expect(column[7]).to be_nil
+      expect(column[7]).to eq('  ')
     end
   end
 end
