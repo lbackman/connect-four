@@ -11,7 +11,7 @@ RSpec.describe Board do
   let(:column_6) { instance_double(Column) }
   let(:column_7) { instance_double(Column) }
 
-  before(:each) do
+  before do
     allow(board).to receive(:get_column).with(1).and_return(column_1)
     allow(board).to receive(:get_column).with(2).and_return(column_2)
     allow(board).to receive(:get_column).with(3).and_return(column_3)
@@ -32,19 +32,19 @@ RSpec.describe Board do
     allow(column_1).to receive(:get_marker).with(4).and_return("  ")
     allow(column_1).to receive(:get_marker).with(5).and_return("  ")
     allow(column_1).to receive(:get_marker).with(6).and_return("  ")
-    allow(column_2).to receive(:get_marker).with(1).and_return("  ")
-    allow(column_2).to receive(:get_marker).with(2).and_return("  ")
-    allow(column_2).to receive(:get_marker).with(3).and_return("  ")
-    allow(column_2).to receive(:get_marker).with(4).and_return("  ")
+    allow(column_2).to receive(:get_marker).with(1).and_return("\u26aa")
+    allow(column_2).to receive(:get_marker).with(2).and_return("\u26aa")
+    allow(column_2).to receive(:get_marker).with(3).and_return("\u26aa")
+    allow(column_2).to receive(:get_marker).with(4).and_return("\u26aa")
     allow(column_2).to receive(:get_marker).with(5).and_return("  ")
     allow(column_2).to receive(:get_marker).with(6).and_return("  ")
-    allow(column_3).to receive(:get_marker).with(1).and_return("  ")
+    allow(column_3).to receive(:get_marker).with(1).and_return("\u26ab")
     allow(column_3).to receive(:get_marker).with(2).and_return("  ")
     allow(column_3).to receive(:get_marker).with(3).and_return("  ")
     allow(column_3).to receive(:get_marker).with(4).and_return("  ")
     allow(column_3).to receive(:get_marker).with(5).and_return("  ")
     allow(column_3).to receive(:get_marker).with(6).and_return("  ")
-    allow(column_4).to receive(:get_marker).with(1).and_return("  ")
+    allow(column_4).to receive(:get_marker).with(1).and_return("\u26ab")
     allow(column_4).to receive(:get_marker).with(2).and_return("  ")
     allow(column_4).to receive(:get_marker).with(3).and_return("  ")
     allow(column_4).to receive(:get_marker).with(4).and_return("  ")
@@ -56,7 +56,7 @@ RSpec.describe Board do
     allow(column_5).to receive(:get_marker).with(4).and_return("  ")
     allow(column_5).to receive(:get_marker).with(5).and_return("  ")
     allow(column_5).to receive(:get_marker).with(6).and_return("  ")
-    allow(column_6).to receive(:get_marker).with(1).and_return("  ")
+    allow(column_6).to receive(:get_marker).with(1).and_return("\u26ab")
     allow(column_6).to receive(:get_marker).with(2).and_return("  ")
     allow(column_6).to receive(:get_marker).with(3).and_return("  ")
     allow(column_6).to receive(:get_marker).with(4).and_return("  ")
@@ -68,6 +68,19 @@ RSpec.describe Board do
     allow(column_7).to receive(:get_marker).with(4).and_return("  ")
     allow(column_7).to receive(:get_marker).with(5).and_return("  ")
     allow(column_7).to receive(:get_marker).with(6).and_return("  ")
+  end
+
+  before do
+    board.place_marker!("\u26aa", 1)
+    board.place_marker!("\u26aa", 5)
+    board.place_marker!("\u26ab", 5)
+    board.place_marker!("\u26aa", 2)
+    board.place_marker!("\u26aa", 2)
+    board.place_marker!("\u26aa", 2)
+    board.place_marker!("\u26aa", 2)
+    board.place_marker!("\u26ab", 3)
+    board.place_marker!("\u26ab", 4)
+    board.place_marker!("\u26ab", 6)
   end
 
   describe '#place_marker!' do
@@ -82,25 +95,19 @@ RSpec.describe Board do
 
   describe '#row' do
 
-    before do
-      board.place_marker!("\u26aa", 1)
-      board.place_marker!("\u26aa", 5)
-      board.place_marker!("\u26ab", 5)
-    end
-
     it 'the 6th (highest) row should be empty' do
       row_6 = board.row(6)
       expect(row_6).to eq("              ")
     end
 
-    it 'the 2nd row should have a black circle in the 5th column' do
+    it 'the 2nd row should have a white circle in the 2nd column and a black in the 5th' do
       row_2 = board.row(2)
-      expect(row_2).to eq("        \u26ab    ")
+      expect(row_2).to eq("  \u26aa    \u26ab    ")
     end
 
-    it 'the 1st row should have a white circle in the 1st and 5th column' do
+    it 'the 1st row should have 2 white circles and four black' do
       row_1 = board.row(1)
-      expect(row_1).to eq("\u26aa      \u26ab    ")
+      expect(row_1).to eq("\u26aa\u26aa\u26ab\u26ab\u26ab\u26ab  ")
     end
   end
 
@@ -112,16 +119,37 @@ RSpec.describe Board do
       expect(board.current_board).to eq(
         "              " + "\n" +
         "              " + "\n" +
-        "              " + "\n" +
-        "              " + "\n" +
-        "        \u26ab    " + "\n" +
-        "\u26aa      \u26ab    ")
+        "  \u26aa          " + "\n" +
+        "  \u26aa          " + "\n" +
+        "  \u26aa    \u26ab    " + "\n" +
+        "\u26aa\u26aa\u26ab\u26ab\u26ab\u26ab  ")
     end
   end
 
   describe '#column_win?' do
-    it 'should return false if there are not 4 of the same markers in a row' do
+
+    it 'should return false if there are not 4 of the same marker in a row in the column' do
       expect(board.column_win?(1, "\u26aa")).to eq(false)
+    end
+
+    it 'should return true for column 2' do
+      expect(board.column_win?(2, "\u26aa")).to eq(true)
+    end
+  end
+
+  describe '#row_win?' do
+    it 'should return false if there are not 4 of the same marker in a row in the row' do
+      expect(board.row_win?(2, "\u26aa")).to eq(false)
+    end
+
+    it 'should return true for row 1' do
+      expect(board.row_win?(1, "\u26ab"))
+    end
+  end
+
+  describe '#diagonal_ascending_win?' do
+    it 'should return false when no diagonal win' do
+      expect(board.diagonal_ascending_win?(1, 1, "\u26aa")).to eq(false)
     end
   end
 end

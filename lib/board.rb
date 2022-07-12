@@ -30,11 +30,31 @@ class Board
   end
 
   def column_win?(number, marker)
-    col = instance_variable_get("@col_#{number}")
+    # col = instance_variable_get("@col_#{number}")
     1.upto(6)
-      .map { |i| col[i] }
+      .map { |i| get_column(number).get_marker(i) }
       .each_cons(4)
-      .any? { |arr| arr == Array.new(4) { marker }}
+      .any? { |arr| arr.all? { |n| n == marker } }
+    # get_column(2).get_marker(1) == "\u26aa"
+
+    # 1.upto(4).map { |i| col[i] == marker }.all? ||
+    # 2.upto(5).map { |i| col[i] == marker }.all? ||
+    # 3.upto(6).map { |i| col[i] == marker }.all?
+
+    # (col[1] == marker && col[2] == marker && col[3] == marker && col[4] == marker) ||
+    # (col[2] == marker && col[3] == marker && col[4] == marker && col[6] == marker) ||
+    # (col[3] == marker && col[4] == marker && col[5] == marker && col[6] == marker)
+  end
+
+  def row_win?(number, marker)
+    1.upto(7)
+      .map { |i| get_column(i).get_marker(number) }
+      .each_cons(4)
+      .any? { |arr| arr.all? { |n| n == marker } }
+  end
+
+  def diagonal_ascending_win?(column, row, marker)
+    false
   end
 
   alias_method :[], :get_column
