@@ -70,25 +70,6 @@ RSpec.describe Board do
     allow(column_7).to receive(:get_marker).with(6).and_return("  ")
   end
 
-  before do
-    board.place_marker!("\u26aa", 1)
-    board.place_marker!("\u26aa", 5)
-    board.place_marker!("\u26ab", 5)
-    board.place_marker!("\u26aa", 2)
-    board.place_marker!("\u26aa", 2)
-    board.place_marker!("\u26aa", 2)
-    board.place_marker!("\u26aa", 2)
-    board.place_marker!("\u26ab", 3)
-    board.place_marker!("\u26ab", 4)
-    board.place_marker!("\u26ab", 6)
-    board.place_marker!("\u26ab", 3)
-    board.place_marker!("\u26aa", 3)
-    board.place_marker!("\u26ab", 3)
-    board.place_marker!("\u26ab", 4)
-    board.place_marker!("\u26ab", 4)
-    board.place_marker!("\u26aa", 4)
-  end
-
   describe '#place_marker!' do
     context 'when placing a marker' do
 
@@ -117,11 +98,8 @@ RSpec.describe Board do
     end
   end
 
-
   describe '#current_board' do
-
     it 'should return the state of the board' do
-
       expect(board.current_board).to eq(
         "              " + "\n" +
         "              " + "\n" +
@@ -133,13 +111,22 @@ RSpec.describe Board do
   end
 
   describe '#column_win?' do
-
     it 'should return false if there are not 4 of the same marker in a row in the column' do
       expect(board.column_win?(1, "\u26aa")).to eq(false)
     end
 
     it 'should return true for column 2' do
       expect(board.column_win?(2, "\u26aa")).to eq(true)
+    end
+  end
+
+  describe '#any_column_win?' do
+    it 'should return true for player 1' do
+      expect(board.any_column_win?("\u26aa")).to eq(true)
+    end
+
+    it 'should return false for player 2' do
+      expect(board.any_column_win?("\u26ab")).to eq(false)
     end
   end
 
@@ -150,6 +137,16 @@ RSpec.describe Board do
 
     it 'should return true for row 1' do
       expect(board.row_win?(1, "\u26ab"))
+    end
+  end
+
+  describe '#any_row_win?' do
+    it 'should return false for player 1' do
+      expect(board.any_row_win?("\u26aa")).to eq(false)
+    end
+
+    it 'should return true for player 2' do
+      expect(board.any_row_win?("\u26ab")).to eq(true)
     end
   end
 
@@ -167,6 +164,16 @@ RSpec.describe Board do
     end
   end
 
+  describe '#any_ascending_win?' do
+    it 'should return true for player 1' do
+      expect(board.any_ascending_win?("\u26aa")).to eq(true)
+    end
+
+    it 'should return false for player 2' do
+      expect(board.any_ascending_win?("\u26ab")).to eq(false)
+    end
+  end
+
   describe '#diagonal_descending_win?' do
     it 'should return false when no diagonal win' do
       expect(board.diagonal_descending_win?(2, 4, "\u26ab")).to eq(false)
@@ -178,6 +185,26 @@ RSpec.describe Board do
 
     it 'should return false when the wrong marker is checked' do
       expect(board.diagonal_descending_win?(3, 4, "\u26aa")).to eq(false)
+    end
+  end
+
+  describe '#any_descending_win' do
+    it 'should return false for player 1' do
+      expect(board.any_descending_win?("\u26aa")).to eq(false)
+    end
+
+    it 'should return true for player 2' do
+      expect(board.any_descending_win?("\u26ab")).to eq(true)
+    end
+  end
+
+  describe '#win?' do
+    it 'should return true for player 1' do
+      expect(board.win?("\u26aa")).to eq(true)
+    end
+
+    it 'should return true for player 2' do
+      expect(board.win?("\u26ab")).to eq(true)
     end
   end
 end

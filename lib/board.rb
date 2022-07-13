@@ -29,18 +29,30 @@ class Board
     6.downto(1).map { |i| row(i) }.join("\n")
   end
 
-  def column_win?(number, marker)
+  def column_win?(column, marker)
     1.upto(6)
-      .map { |i| get_column(number).get_marker(i) }
+      .map { |i| get_column(column).get_marker(i) }
       .each_cons(4)
       .any? { |arr| arr.all? { |n| n == marker } }
   end
 
-  def row_win?(number, marker)
+  def any_column_win?(marker)
     1.upto(7)
-      .map { |i| get_column(i).get_marker(number) }
+      .map { |i| column_win?(i, marker) }
+      .any?
+  end
+
+  def row_win?(row, marker)
+    1.upto(7)
+      .map { |i| get_column(i).get_marker(row) }
       .each_cons(4)
       .any? { |arr| arr.all? { |n| n == marker } }
+  end
+
+  def any_row_win?(marker)
+    1.upto(6)
+      .map { |i| row_win?(i, marker) }
+      .any?
   end
 
   def diagonal_ascending_win?(column, row, marker)
@@ -49,10 +61,31 @@ class Board
       .all? { |n| n == marker }
   end
 
+  def any_ascending_win?(marker)
+    1.upto(4)
+      .map { |i| 1.upto(3)
+      .map { |j| diagonal_ascending_win?(i, j, marker) } }
+      .flatten
+      .any?
+  end
+
   def diagonal_descending_win?(column, row, marker)
     1.upto(4)
       .map { |i| get_column(column + i - 1).get_marker(row - i + 1) }
       .all? { |n| n == marker }
+  end
+
+  def any_descending_win?(marker)
+    1.upto(4)
+      .map { |i| 6.downto(4)
+      .map { |j| diagonal_descending_win?(i, j, marker) } }
+      .flatten
+      .any?
+  end
+
+  def win?(marker)
+    any_column_win?(marker) || any_row_win?(marker) ||
+    any_ascending_win?(marker) || any_descending_win?(marker)
   end
 
   alias_method :[], :get_column
