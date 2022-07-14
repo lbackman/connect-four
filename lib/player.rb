@@ -15,4 +15,8 @@ class Player
   def player_win?
     board.win?(marker)
   end
+
+  def to_s
+    "Player #{number}"
+  end
 end
