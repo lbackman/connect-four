@@ -14,12 +14,19 @@ class Column
   end
 
   def drop_marker!(value = 'marker_1')
+    dropped = false
     if @slots_used < 6
       @items[@slots_used + 1] = value
       @slots_used += 1
+      dropped = true
     else
-      "Column #{@number} is full, please choose another"
+      puts column_full_message
     end
+    dropped
+  end
+
+  def column_full_message
+    "Column #{@number} is full, please choose another"
   end
 
   alias_method :[], :get_marker

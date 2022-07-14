@@ -24,14 +24,31 @@ describe Column do
       expect(column[2]).to eq('marker2')
     end
 
-    it 'sets the value at [6] to marker6' do
-      6.times { |i| column.drop_marker!("marker#{i + 1}")}
-      expect(column[6]).to eq('marker6')
+    it 'returns true when the column is not full' do
+      column.drop_marker!('marker1')
+      return_value = column.drop_marker!('marker1')
+      expect(return_value).to eq(true)
     end
+    context 'the column is filled' do
 
-    it 'does not drop any more markers after 6' do
-      7.times { |i| column.drop_marker!("marker#{i + 1}")}
-      expect(column[7]).to eq('  ')
+      before do
+        6.times { |i| column.drop_marker!("marker#{i + 1}")}
+        allow(column).to receive(:puts)
+      end
+
+      it 'sets the value at [6] to marker6' do
+        expect(column[6]).to eq('marker6')
+      end
+
+      it 'does not drop any more markers after 6' do
+        column.drop_marker!('marker7')
+        expect(column[7]).to eq('  ')
+      end
+
+      it 'returns false when the column is full' do
+        return_value = column.drop_marker!('marker7')
+        expect(return_value).to eq(false)
+      end
     end
   end
 end
