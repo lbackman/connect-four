@@ -16,7 +16,7 @@ class Game
   def play
     introduction
     loop do
-      board_changed = choose_slot
+      board_changed = choose_slot!
       print_board
       break if game_over?
 
@@ -49,7 +49,7 @@ class Game
     @current_player, @next_player = @next_player, @current_player
   end
 
-  def choose_slot
+  def choose_slot!
     puts "#{current_player}, choose a column to place your marker (1 - 7)"
     loop do
       column = gets.to_i

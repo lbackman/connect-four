@@ -26,7 +26,7 @@ RSpec.describe Game do
     end
   end
 
-  describe '#choose_slot' do
+  describe '#choose_slot!' do
     subject(:game_loop) { described_class.new(board, player_1, player_2) }
 
     context 'when player chooses a valid column (1-7)' do
@@ -40,7 +40,7 @@ RSpec.describe Game do
 
       it 'sends a message to current_player' do
         expect(player_1).to receive(:choose_column!).with(valid_input)
-        game_loop.choose_slot
+        game_loop.choose_slot!
       end
     end
 
@@ -58,7 +58,7 @@ RSpec.describe Game do
 
       it 'displays error message twice' do
         expect(game_loop).to receive(:puts).with('Please give a value between 1 and 7.').twice
-        game_loop.choose_slot
+        game_loop.choose_slot!
       end
     end
   end
