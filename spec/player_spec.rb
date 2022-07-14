@@ -5,7 +5,7 @@ describe Player do
   let(:board) { double('board') }
   let(:marker) { double('Marker') }
   let(:column) { 2 }
-  subject(:player_1) { described_class.for(board, 1) }
+  subject(:player_1) { described_class.new(board, 1) }
 
   describe '#choose_column!' do
 
