@@ -72,10 +72,18 @@ RSpec.describe Board do
 
   describe '#place_marker!' do
     context 'when placing a marker' do
+      before do
+        allow(column_2).to receive(:drop_marker!).and_return(true)
+      end
 
       it 'should send a message to column' do
          expect(column_1).to receive(:drop_marker!)
          board.place_marker!('marker1', 1)
+      end
+
+      it 'should return true' do
+        return_value = board.place_marker!('marker1', 2)
+        expect(return_value).to eq(true)
       end
     end
   end
