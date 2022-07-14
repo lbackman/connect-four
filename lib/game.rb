@@ -1,3 +1,6 @@
+require_relative 'board'
+require_relative 'player'
+
 class Game
   attr_reader :board, :current_player, :next_player
   def initialize(board, player_1, player_2)
@@ -6,6 +9,18 @@ class Game
     @player_2 = player_2
     @current_player = @player_1
     @next_player = @player_2
+  end
+
+  def play
+    introduction
+    loop do
+      choose_slot
+      print_board
+      break if game_over?
+
+      switch_player!
+    end
+    game_over_message
   end
 
   def introduction

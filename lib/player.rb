@@ -1,4 +1,4 @@
-require 'marker'
+require_relative 'marker'
 
 class Player
   attr_reader :board, :marker
@@ -9,14 +9,14 @@ class Player
   end
 
   def choose_column!(column)
-    board.place_marker!(marker, column)
+    @board.place_marker!(@marker, column)
   end
 
   def player_win?
-    board.win?(marker)
+    @board.win?(@marker.symbol)
   end
 
   def to_s
-    "Player #{number}"
+    "Player #{@number}"
   end
 end

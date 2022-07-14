@@ -1,4 +1,4 @@
-require 'column'
+require_relative 'column'
 
 class Board
   def initialize
