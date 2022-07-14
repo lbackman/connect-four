@@ -1,6 +1,8 @@
 require_relative 'board'
 require_relative 'player'
 
+require 'pry-byebug'
+
 class Game
   attr_reader :board, :current_player, :next_player
   def initialize(board, player_1, player_2)
@@ -14,11 +16,11 @@ class Game
   def play
     introduction
     loop do
-      choose_slot
+      board_changed = choose_slot
       print_board
       break if game_over?
 
-      switch_player!
+      switch_player! if board_changed
     end
     game_over_message
   end
@@ -52,8 +54,7 @@ class Game
     loop do
       column = gets.to_i
       if (1..7).include?(column)
-        current_player.choose_column!(column)
-        break
+        return current_player.choose_column!(column)
       else
         puts 'Please give a value between 1 and 7.'
       end
