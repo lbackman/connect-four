@@ -5,8 +5,8 @@ require 'board'
 RSpec.describe Game do
   subject(:game) { described_class.new(board, player_1, player_2) }
   let(:board) { instance_double(Board) }
-  let(:player_1) { instance_double(Player) }
-  let(:player_2) { instance_double(Player) }
+  let(:player_1) { instance_double(Player, to_s: 'Player 1') }
+  let(:player_2) { instance_double(Player, to_s: 'Player 2') }
 
   describe '#switch_player!' do
     context 'when the current player is player_1' do
@@ -35,7 +35,7 @@ RSpec.describe Game do
       before do
         allow(player_1).to receive(:choose_column!)
         allow(game_loop).to receive(:gets).and_return(valid_input)
-        allow(game_loop).to receive(:puts).with('Choose a column to place your marker (1 - 7)')
+        allow(game_loop).to receive(:puts).with('Player 1, choose a column to place your marker (1 - 7)')
       end
 
       it 'sends a message to current_player' do
@@ -52,7 +52,7 @@ RSpec.describe Game do
       before do
         allow(player_1).to receive(:choose_column!)
         allow(game_loop).to receive(:gets).exactly(3).times.and_return(invalid_input_1, invalid_input_2, valid_input)
-        allow(game_loop).to receive(:puts).with('Choose a column to place your marker (1 - 7)')
+        allow(game_loop).to receive(:puts).with('Player 1, choose a column to place your marker (1 - 7)')
         allow(game_loop).to receive(:puts).with('Please give a value between 1 and 7.').twice
       end
 
