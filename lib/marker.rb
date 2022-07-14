@@ -15,23 +15,23 @@ class Marker
     end.new(number)
   end
 
-  def marker
+  def symbol
     "\u26d4"
   end
 
   def to_s
-    marker
+    symbol
   end
 end
 
 class Marker1 < Marker
-  def marker
+  def symbol
     "\u26aa"
   end
 end
 
 class Marker2 < Marker
-  def marker
+  def symbol
     "\u26ab"
   end
 end
