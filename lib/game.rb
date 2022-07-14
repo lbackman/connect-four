@@ -24,6 +24,10 @@ class Game
     HEREDOC
   end
 
+  def print_board
+    puts board.current_board
+  end
+
   def switch_player!
     @current_player, @next_player = @next_player, @current_player
   end

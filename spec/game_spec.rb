@@ -116,4 +116,15 @@ RSpec.describe Game do
       end
     end
   end
+
+  describe '#print_board' do
+    before do
+      allow(board).to receive(:current_board)
+    end
+
+    it 'prints the current board' do
+      expect(game).to receive(:puts)
+      game.print_board
+    end
+  end
 end
