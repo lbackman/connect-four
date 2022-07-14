@@ -1,4 +1,5 @@
 class Column
+  attr_reader :slots_used
   def initialize(number = 1)
     @number = number
     @items = {}

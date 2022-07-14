@@ -13,6 +13,12 @@ class Board
     get_column(number).drop_marker!(marker)
   end
 
+  def full?
+    1.upto(7)
+      .map { |i| get_column(i).slots_used }
+      .all? { |n| n == 6 }
+  end
+
   def row(number)
     row_print = ""
     7.times do |i|

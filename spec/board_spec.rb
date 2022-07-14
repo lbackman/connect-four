@@ -88,6 +88,58 @@ RSpec.describe Board do
     end
   end
 
+  describe '#full?' do
+    context 'when the board is not full' do
+      subject(:board_not_full) { described_class.new }
+      let(:column_1) { instance_double(Column, slots_used: 1) }
+      let(:column_2) { instance_double(Column, slots_used: 6) }
+      let(:column_3) { instance_double(Column, slots_used: 3) }
+      let(:column_4) { instance_double(Column, slots_used: 5) }
+      let(:column_5) { instance_double(Column, slots_used: 0) }
+      let(:column_6) { instance_double(Column, slots_used: 2) }
+      let(:column_7) { instance_double(Column, slots_used: 6) }
+
+      before do
+        allow(board_not_full).to receive(:get_column).with(1).and_return(column_1)
+        allow(board_not_full).to receive(:get_column).with(2).and_return(column_2)
+        allow(board_not_full).to receive(:get_column).with(3).and_return(column_3)
+        allow(board_not_full).to receive(:get_column).with(4).and_return(column_4)
+        allow(board_not_full).to receive(:get_column).with(5).and_return(column_5)
+        allow(board_not_full).to receive(:get_column).with(6).and_return(column_6)
+        allow(board_not_full).to receive(:get_column).with(7).and_return(column_7)
+      end
+
+      it 'returns false' do
+        expect(board_not_full.full?).to eq(false)
+      end
+    end
+
+    context 'when the board is full' do
+      subject(:board_full) { described_class.new }
+      let(:column_1) { instance_double(Column, slots_used: 6) }
+      let(:column_2) { instance_double(Column, slots_used: 6) }
+      let(:column_3) { instance_double(Column, slots_used: 6) }
+      let(:column_4) { instance_double(Column, slots_used: 6) }
+      let(:column_5) { instance_double(Column, slots_used: 6) }
+      let(:column_6) { instance_double(Column, slots_used: 6) }
+      let(:column_7) { instance_double(Column, slots_used: 6) }
+
+      before do
+        allow(board_full).to receive(:get_column).with(1).and_return(column_1)
+        allow(board_full).to receive(:get_column).with(2).and_return(column_2)
+        allow(board_full).to receive(:get_column).with(3).and_return(column_3)
+        allow(board_full).to receive(:get_column).with(4).and_return(column_4)
+        allow(board_full).to receive(:get_column).with(5).and_return(column_5)
+        allow(board_full).to receive(:get_column).with(6).and_return(column_6)
+        allow(board_full).to receive(:get_column).with(7).and_return(column_7)
+      end
+      
+      it 'returns true' do
+        expect(board_full.full?).to eq(true)
+      end
+    end
+  end
+
   describe '#row' do
 
     it 'the 6th (highest) row should be empty' do
