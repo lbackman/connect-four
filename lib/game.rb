@@ -8,12 +8,28 @@ class Game
     @next_player = @player_2
   end
 
+  def introduction
+    puts <<~HEREDOC
+
+      Hi and welcome to connect-four; the game where the first player to place
+      four of their markers in a row wins.
+
+      The game board has 7 columns and 6 rows. You drop a marker by pressing on
+      the number 1 to 7 on your keyboard.
+
+      #{@player_1} has white markers and #{@player_2} has black markers.
+
+      #{current_player} goes first. Good luck!
+
+    HEREDOC
+  end
+
   def switch_player!
     @current_player, @next_player = @next_player, @current_player
   end
 
   def choose_slot
-    puts 'Choose a column to place your marker (1 - 7)'
+    puts "#{current_player}, choose a column to place your marker (1 - 7)"
     loop do
       column = gets.to_i
       if (1..7).include?(column)
