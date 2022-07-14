@@ -44,4 +44,12 @@ class Game
   def game_over?
     current_player.player_win? || board.full?
   end
+
+  def game_over_message
+    if current_player.player_win?
+      puts "#{current_player} won the game!"
+    else
+      puts "It's a draw."
+    end
+  end
 end

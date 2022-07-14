@@ -93,4 +93,27 @@ RSpec.describe Game do
       end
     end
   end
+
+  describe '#game_over_message' do
+    context 'game over because player won' do
+      let(:player_1) { instance_double(Player, player_win?: true, to_s: 'Player 1') }
+      let(:player_2) { instance_double(Player, player_win?: false) }
+
+      it 'prints a message with the winner' do
+        expect(game).to receive(:puts).with('Player 1 won the game!')
+        game.game_over_message
+      end
+    end
+
+    context 'game over beacuse board full' do
+      let(:player_1) { instance_double(Player, player_win?: false) }
+      let(:player_2) { instance_double(Player, player_win?: false) }
+      let(:board) { instance_double(Board, full?: true) }
+
+      it 'prints a message declaring the game a draw' do
+        expect(game).to receive(:puts).with("It's a draw.")
+        game.game_over_message
+      end
+    end
+  end
 end
