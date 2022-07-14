@@ -40,4 +40,8 @@ class Game
       end
     end
   end
+
+  def game_over?
+    current_player.player_win? || board.full?
+  end
 end

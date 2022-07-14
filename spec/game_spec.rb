@@ -62,4 +62,35 @@ RSpec.describe Game do
       end
     end
   end
+
+  describe '#game_over?' do
+    context 'a player has won' do
+      let(:player_1) { instance_double(Player, player_win?: true) }
+      let(:player_2) { instance_double(Player, player_win?: false) }
+
+      it 'returns true when current player has won' do
+        expect(game.game_over?).to eq(true)
+      end
+    end
+
+    context 'no player has won but the board is full' do
+      let(:player_1) { instance_double(Player, player_win?: false) }
+      let(:player_2) { instance_double(Player, player_win?: false) }
+      let(:board) { instance_double(Board, full?: true) }
+
+      it 'returns true if the board is full with no winners' do
+        expect(game.game_over?).to eq(true)
+      end
+    end
+
+    context 'no player has won and the board is not full' do
+      let(:player_1) { instance_double(Player, player_win?: false) }
+      let(:player_2) { instance_double(Player, player_win?: false) }
+      let(:board) { instance_double(Board, full?: false) }
+
+      it 'returns false if the board is not full with no winners' do
+        expect(game.game_over?).to eq(false)
+      end
+    end
+  end
 end
