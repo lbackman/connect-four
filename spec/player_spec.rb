@@ -14,11 +14,17 @@ describe Player do
       before do
         allow(board).to receive(:place_marker!).with(marker, column)
         allow(player_1).to receive(:marker).and_return(marker)
+        allow(board).to receive(:place_marker!).and_return(true)
       end
 
       it 'the player can place their marker' do
         expect(board).to receive(:place_marker!).with(marker, column)
         player_1.choose_column!(column)
+      end
+
+      it 'should return true' do
+        return_value = player_1.choose_column!(column)
+        expect(return_value).to eq(true)
       end
     end
   end
