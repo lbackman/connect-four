@@ -20,6 +20,10 @@ class Player
   def choose_column!(column)
     board.place_marker!(marker, column)
   end
+
+  def player_win?
+    board.win?(marker)
+  end
 end
 
 class Player1 < Player
