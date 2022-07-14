@@ -3,7 +3,7 @@ require 'marker'
 
 describe Player do
   let(:board) { double('board') }
-  let(:marker) { double('Marker') }
+  let(:marker) { double('Marker', ) }
   let(:column) { 2 }
   subject(:player_1) { described_class.new(board, 1) }
 
@@ -34,10 +34,11 @@ describe Player do
     before do
       allow(board).to receive(:win?).with(marker)
       allow(player_1).to receive(:marker).and_return(marker)
+      allow(marker).to receive(:symbol)
     end
 
     it 'a message should be sent to board' do
-      expect(board).to receive(:win?).with(marker)
+      expect(board).to receive(:win?).with(marker.symbol)
       player_1.player_win?
     end
   end

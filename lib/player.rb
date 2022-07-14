@@ -9,11 +9,11 @@ class Player
   end
 
   def choose_column!(column)
-    @board.place_marker!(@marker, column)
+    board.place_marker!(marker, column)
   end
 
   def player_win?
-    @board.win?(@marker.symbol)
+    board.win?(marker.symbol)
   end
 
   def to_s
