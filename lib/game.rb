@@ -11,4 +11,17 @@ class Game
   def switch_player!
     @current_player, @next_player = @next_player, @current_player
   end
+
+  def choose_slot
+    puts 'Choose a column to place your marker (1 - 7)'
+    loop do
+      column = gets.to_i
+      if (1..7).include?(column)
+        current_player.choose_column!(column)
+        break
+      else
+        puts 'Please give a value between 1 and 7.'
+      end
+    end
+  end
 end
