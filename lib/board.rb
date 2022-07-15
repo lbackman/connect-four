@@ -45,7 +45,7 @@ class Board
   end
 
   def number_line
-    "\t  1    2    3    4    5    6    7   \n\n"
+    "\t  \u2460    \u2461    \u2462    \u2463    \u2464    \u2465    \u2466   \n\n"
   end
 
   def column_win?(column, marker)
