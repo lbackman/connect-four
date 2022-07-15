@@ -22,12 +22,13 @@ class Column
       dropped = true
     else
       puts column_full_message
+      sleep 1.5
     end
     dropped
   end
 
   def column_full_message
-    "Column #{@number} is full, please choose another"
+    "\033[3AColumn #{@number} is full, please choose another.#{" "*55}\n#{" "*35}\033[1B"
   end
 
   alias_method :[], :get_marker

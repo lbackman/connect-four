@@ -14,7 +14,9 @@ class Game
   end
 
   def play
+    system('clear')
     introduction
+    print_board
     loop do
       board_changed = choose_slot!
       print_board
@@ -28,21 +30,21 @@ class Game
   def introduction
     puts <<~HEREDOC
 
-      Hi and welcome to connect-four; the game where the first player to place
-      four of their markers in a row wins.
+      Hi and welcome to Connect-Four; the game where the first player to place
+            four consecutive markers in a row, column or diagonal, wins.
 
       The game board has 7 columns and 6 rows. You drop a marker by pressing on
-      the number 1 to 7 on your keyboard.
+                    the numbers 1 through 7 on your keyboard.
 
-      #{@player_1} has white markers and #{@player_2} has black markers.
+            #{@player_1} has white markers and #{@player_2} has black markers.
 
-      #{current_player} goes first. Good luck!
-
+                        #{current_player} goes first. Good luck!
+      \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
     HEREDOC
   end
 
   def print_board
-    puts board.current_board
+    puts "\033[17A#{board.current_board}"
   end
 
   def switch_player!
@@ -50,13 +52,13 @@ class Game
   end
 
   def choose_slot!
-    puts "#{current_player}, choose a column to place your marker (1 - 7)"
+    puts "\033[1A#{current_player}, choose a column to place your marker.#{" "*55}\n#{" "*35}\n\033[2A"
     loop do
       column = gets.to_i
       if (1..7).include?(column)
         return current_player.choose_column!(column)
       else
-        puts 'Please give a value between 1 and 7.'
+        puts "\033[3APlease give a value between 1 and 7.#{" "*55}\n#{" "*35}\n#{" "*35}\033[1A"
       end
     end
   end
@@ -67,9 +69,9 @@ class Game
 
   def game_over_message
     if current_player.player_win?
-      puts "#{current_player} won the game!"
+      puts "\033[1A#{current_player} won the game!#{" "*35}\n#{" "*75}\n"
     else
-      puts "It's a draw."
+      puts "\033[1AIt's a draw.#{" "*42}\n#{" "*85}\n"
     end
   end
 end
