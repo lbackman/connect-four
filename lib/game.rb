@@ -1,8 +1,6 @@
 require_relative 'board'
 require_relative 'player'
 
-require 'pry-byebug'
-
 class Game
   attr_reader :board, :current_player, :next_player
   def initialize(board, player_1, player_2)
