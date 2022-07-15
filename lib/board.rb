@@ -5,10 +5,6 @@ class Board
     7.times { |i| instance_variable_set("@col_#{i + 1}", Column.new(i + 1)) }
   end
 
-  def get_column(number)
-    instance_variable_get("@col_#{number}")
-  end
-
   def place_marker!(marker, number)
     get_column(number).drop_marker!(marker)
   end
@@ -19,18 +15,29 @@ class Board
       .all? { |n| n == 6 }
   end
 
+  def current_board
+      rows = []
+      6.downto(1) { |i| rows << row(i) }
+      "\n#{rows.join(separator)}#{separator}#{number_line}"
+  end
+
+  def win?(marker)
+    any_column_win?(marker) || any_row_win?(marker) ||
+    any_ascending_win?(marker) || any_descending_win?(marker)
+  end
+
+  private
+
+  def get_column(number)
+    instance_variable_get("@col_#{number}")
+  end
+
   def row(number)
     row_print = []
     7.times do |i|
       row_print << " #{get_column(i + 1).get_marker(number)} "
     end
     "\t|#{row_print.join("|")}|"
-  end
-
-  def current_board
-    rows = []
-    6.downto(1) { |i| rows << row(i) }
-    "\n#{rows.join(separator)}#{separator}#{number_line}"
   end
 
   def separator
@@ -93,11 +100,6 @@ class Board
       .map { |j| diagonal_descending_win?(i, j, marker) } }
       .flatten
       .any?
-  end
-
-  def win?(marker)
-    any_column_win?(marker) || any_row_win?(marker) ||
-    any_ascending_win?(marker) || any_descending_win?(marker)
   end
 
   alias_method :[], :get_column

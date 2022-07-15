@@ -27,6 +27,8 @@ class Column
     dropped
   end
 
+  private
+
   def column_full_message
     "\033[3AColumn #{@number} is full, please choose another.#{" "*55}\n#{" "*35}\033[1B"
   end

@@ -141,21 +141,22 @@ RSpec.describe Board do
   end
 
   describe '#row' do
+    #private
 
-    it 'the 6th (highest) row should be empty' do
-      row_6 = board.row(6)
-      expect(row_6).to eq("\t|    |    |    |    |    |    |    |")
-    end
+    # xit 'the 6th (highest) row should be empty' do
+    #   row_6 = board.row(6)
+    #   expect(row_6).to eq("\t|    |    |    |    |    |    |    |")
+    # end
 
-    it 'the 2nd row should have a white circle in the 2nd column and a black in the 5th' do
-      row_2 = board.row(2)
-      expect(row_2).to eq("\t|    | \u26aa | \u26ab | \u26ab | \u26ab |    |    |")
-    end
+    # xit 'the 2nd row should have a white circle in the 2nd column and a black in the 5th' do
+    #   row_2 = board.row(2)
+    #   expect(row_2).to eq("\t|    | \u26aa | \u26ab | \u26ab | \u26ab |    |    |")
+    # end
 
-    it 'the 1st row should have 2 white circles and four black' do
-      row_1 = board.row(1)
-      expect(row_1).to eq("\t| \u26aa | \u26aa | \u26ab | \u26ab | \u26ab | \u26ab |    |")
-    end
+    # xit 'the 1st row should have 2 white circles and four black' do
+    #   row_1 = board.row(1)
+    #   expect(row_1).to eq("\t| \u26aa | \u26aa | \u26ab | \u26ab | \u26ab | \u26ab |    |")
+    # end
   end
 
   describe '#current_board' do
@@ -179,91 +180,107 @@ RSpec.describe Board do
   end
 
   describe '#column_win?' do
-    it 'should return false if there are not 4 of the same marker in a row in the column' do
-      expect(board.column_win?(1, "\u26aa")).to eq(false)
-    end
+    #private
 
-    it 'should return true for column 2' do
-      expect(board.column_win?(2, "\u26aa")).to eq(true)
-    end
+    # xit 'should return false if there are not 4 of the same marker in a row in the column' do
+    #   expect(board.column_win?(1, "\u26aa")).to eq(false)
+    # end
+
+    # xit 'should return true for column 2' do
+    #   expect(board.column_win?(2, "\u26aa")).to eq(true)
+    # end
   end
 
   describe '#any_column_win?' do
-    it 'should return true for player 1' do
-      expect(board.any_column_win?("\u26aa")).to eq(true)
-    end
+    #private
 
-    it 'should return false for player 2' do
-      expect(board.any_column_win?("\u26ab")).to eq(false)
-    end
+    # xit 'should return true for player 1' do
+    #   expect(board.any_column_win?("\u26aa")).to eq(true)
+    # end
+
+    # xit 'should return false for player 2' do
+    #   expect(board.any_column_win?("\u26ab")).to eq(false)
+    # end
   end
 
   describe '#row_win?' do
-    it 'should return false if there are not 4 of the same marker in a row in the row' do
-      expect(board.row_win?(2, "\u26aa")).to eq(false)
-    end
+    #private
 
-    it 'should return true for row 1' do
-      expect(board.row_win?(1, "\u26ab"))
-    end
+    # xit 'should return false if there are not 4 of the same marker in a row in the row' do
+    #   expect(board.row_win?(2, "\u26aa")).to eq(false)
+    # end
+
+    # xit 'should return true for row 1' do
+    #   expect(board.row_win?(1, "\u26ab"))
+    # end
   end
 
   describe '#any_row_win?' do
-    it 'should return false for player 1' do
-      expect(board.any_row_win?("\u26aa")).to eq(false)
-    end
+    #private
 
-    it 'should return true for player 2' do
-      expect(board.any_row_win?("\u26ab")).to eq(true)
-    end
+    # xit 'should return false for player 1' do
+    #   expect(board.any_row_win?("\u26aa")).to eq(false)
+    # end
+
+    # xit 'should return true for player 2' do
+    #   expect(board.any_row_win?("\u26ab")).to eq(true)
+    # end
   end
 
   describe '#diagonal_ascending_win?' do
-    it 'should return false when no diagonal win' do
-      expect(board.diagonal_ascending_win?(1, 3, "\u26aa")).to eq(false)
-    end
+    #private
 
-    it 'should be true when there is a winning diagonal' do
-      expect(board.diagonal_ascending_win?(1, 1, "\u26aa")).to eq(true)
-    end
+    # xit 'should return false when no diagonal win' do
+    #   expect(board.diagonal_ascending_win?(1, 3, "\u26aa")).to eq(false)
+    # end
 
-    it 'should return false when the wrong marker is checked' do
-      expect(board.diagonal_ascending_win?(1, 1, "\u26ab")).to eq(false)
-    end
+    # xit 'should be true when there is a winning diagonal' do
+    #   expect(board.diagonal_ascending_win?(1, 1, "\u26aa")).to eq(true)
+    # end
+
+    # xit 'should return false when the wrong marker is checked' do
+    #   expect(board.diagonal_ascending_win?(1, 1, "\u26ab")).to eq(false)
+    # end
   end
 
   describe '#any_ascending_win?' do
-    it 'should return true for player 1' do
-      expect(board.any_ascending_win?("\u26aa")).to eq(true)
-    end
+    #private
 
-    it 'should return false for player 2' do
-      expect(board.any_ascending_win?("\u26ab")).to eq(false)
-    end
+    # xit 'should return true for player 1' do
+    #   expect(board.any_ascending_win?("\u26aa")).to eq(true)
+    # end
+
+    # xit 'should return false for player 2' do
+    #   expect(board.any_ascending_win?("\u26ab")).to eq(false)
+    # end
   end
 
   describe '#diagonal_descending_win?' do
-    it 'should return false when no diagonal win' do
-      expect(board.diagonal_descending_win?(2, 4, "\u26ab")).to eq(false)
-    end
+    #private
 
-    it 'should be true when there is a winning diagonal' do
-      expect(board.diagonal_descending_win?(3, 4, "\u26ab")).to eq(true)
-    end
+    # xit 'should return false when no diagonal win' do
+    #   expect(board.diagonal_descending_win?(2, 4, "\u26ab")).to eq(false)
+    # end
 
-    it 'should return false when the wrong marker is checked' do
-      expect(board.diagonal_descending_win?(3, 4, "\u26aa")).to eq(false)
-    end
+    # xit 'should be true when there is a winning diagonal' do
+    #   expect(board.diagonal_descending_win?(3, 4, "\u26ab")).to eq(true)
+    # end
+
+    # xit 'should return false when the wrong marker is checked' do
+    #   expect(board.diagonal_descending_win?(3, 4, "\u26aa")).to eq(false)
+    # end
   end
 
   describe '#any_descending_win' do
-    it 'should return false for player 1' do
-      expect(board.any_descending_win?("\u26aa")).to eq(false)
-    end
+    #private 
 
-    it 'should return true for player 2' do
-      expect(board.any_descending_win?("\u26ab")).to eq(true)
-    end
+    # xit 'should return false for player 1' do
+    #   expect(board.any_descending_win?("\u26aa")).to eq(false)
+    # end
+
+    # xit 'should return true for player 2' do
+    #   expect(board.any_descending_win?("\u26ab")).to eq(true)
+    # end
   end
 
   describe '#win?' do

@@ -27,6 +27,8 @@ class Game
     game_over_message
   end
 
+  private
+
   def introduction
     puts <<~HEREDOC
 
