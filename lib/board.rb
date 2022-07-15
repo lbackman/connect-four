@@ -22,11 +22,7 @@ class Board
   def row(number)
     row_print = []
     7.times do |i|
-      if get_column(i + 1).get_marker(number)
-        row_print << " #{get_column(i + 1).get_marker(number)} "
-      else
-        row_print << "  "
-      end
+      row_print << " #{get_column(i + 1).get_marker(number)} "
     end
     "\t|#{row_print.join("|")}|"
   end
