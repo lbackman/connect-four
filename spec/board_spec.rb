@@ -144,29 +144,37 @@ RSpec.describe Board do
 
     it 'the 6th (highest) row should be empty' do
       row_6 = board.row(6)
-      expect(row_6).to eq("              ")
+      expect(row_6).to eq("\t|    |    |    |    |    |    |    |")
     end
 
     it 'the 2nd row should have a white circle in the 2nd column and a black in the 5th' do
       row_2 = board.row(2)
-      expect(row_2).to eq("  \u26aa\u26ab\u26ab\u26ab    ")
+      expect(row_2).to eq("\t|    | \u26aa | \u26ab | \u26ab | \u26ab |    |    |")
     end
 
     it 'the 1st row should have 2 white circles and four black' do
       row_1 = board.row(1)
-      expect(row_1).to eq("\u26aa\u26aa\u26ab\u26ab\u26ab\u26ab  ")
+      expect(row_1).to eq("\t| \u26aa | \u26aa | \u26ab | \u26ab | \u26ab | \u26ab |    |")
     end
   end
 
   describe '#current_board' do
     it 'should return the state of the board' do
       expect(board.current_board).to eq(
-        "              " + "\n" +
-        "              " + "\n" +
-        "  \u26aa\u26ab\u26aa      " + "\n" +
-        "  \u26aa\u26aa\u26ab      " + "\n" +
-        "  \u26aa\u26ab\u26ab\u26ab    " + "\n" +
-        "\u26aa\u26aa\u26ab\u26ab\u26ab\u26ab  ")
+        "\n" +
+        "\t|    |    |    |    |    |    |    |" + "\n" +
+        "\t+----+----+----+----+----+----+----+" + "\n" +
+        "\t|    |    |    |    |    |    |    |" + "\n" +
+        "\t+----+----+----+----+----+----+----+" + "\n" +
+        "\t|    | \u26aa | \u26ab | \u26aa |    |    |    |" + "\n" +
+        "\t+----+----+----+----+----+----+----+" + "\n" +
+        "\t|    | \u26aa | \u26aa | \u26ab |    |    |    |" + "\n" +
+        "\t+----+----+----+----+----+----+----+" + "\n" +
+        "\t|    | \u26aa | \u26ab | \u26ab | \u26ab |    |    |" + "\n" +
+        "\t+----+----+----+----+----+----+----+" + "\n" +
+        "\t| \u26aa | \u26aa | \u26ab | \u26ab | \u26ab | \u26ab |    |" + "\n" +
+        "\t+----+----+----+----+----+----+----+" + "\n" +
+        "\t  1    2    3    4    5    6    7   " + "\n\n")
     end
   end
 

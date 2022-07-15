@@ -20,19 +20,29 @@ class Board
   end
 
   def row(number)
-    row_print = ""
+    row_print = []
     7.times do |i|
       if get_column(i + 1).get_marker(number)
-        row_print << get_column(i + 1).get_marker(number)
+        row_print << " #{get_column(i + 1).get_marker(number)} "
       else
         row_print << "  "
       end
     end
-    row_print
+    "\t|#{row_print.join("|")}|"
   end
 
   def current_board
-    6.downto(1).map { |i| row(i) }.join("\n")
+    rows = []
+    6.downto(1) { |i| rows << row(i) }
+    "\n#{rows.join(separator)}#{separator}#{number_line}"
+  end
+
+  def separator
+    "\n\t+----+----+----+----+----+----+----+\n"
+  end
+
+  def number_line
+    "\t  1    2    3    4    5    6    7   \n\n"
   end
 
   def column_win?(column, marker)
