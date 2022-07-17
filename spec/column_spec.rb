@@ -34,6 +34,7 @@ describe Column do
       before do
         6.times { |i| column.drop_marker!("marker#{i + 1}")}
         allow(column).to receive(:puts)
+        allow(column).to receive(:sleep).with(1.5)
       end
 
       it 'sets the value at [6] to marker6' do
